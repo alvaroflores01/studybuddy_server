@@ -1,4 +1,4 @@
-const oracledb = require('oracledb');
+// const oracledb = require('oracledb');
 const dotenv = require('dotenv');
 dotenv.config();
 // Oracle Database connection pool configuration
@@ -8,4 +8,4 @@ const dbConfig = {
   connectString: process.env.DB_CONNECT_STRING
 };
 
-modules.export = dbConfig;
+module.exports = dbConfig;

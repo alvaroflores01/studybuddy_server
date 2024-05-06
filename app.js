@@ -4,7 +4,8 @@ const userRoutes = require('./routes/userRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const lessonRoutes = require('./routes/lessonRoutes');
 const flashcardRoutes = require('./routes/flashcardRoutes');
-const cors = require('cors');
+// const cors = require('cors');
+const dotenv = require('dotenv');
 
 
 dotenv.config();
@@ -12,7 +13,9 @@ dotenv.config();
 app.use(express.json());
 //Routes setup
 app.use('/api/users', userRoutes);
-
+app.get('/', (req,res) => {
+    res.send("Hi")
+})
 
 
 

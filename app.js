@@ -8,8 +8,9 @@ const cors = require('cors');
 dotenv.config();
 //Middleware setup
 app.use(express.json());
-app.use('/api/users', userRoutes);
 //Routes setup
+app.use('/api/users', userRoutes);
+
 
 
 

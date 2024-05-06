@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const userRoutes = require('./routes/userRoutes');
-const dotenv = require('dotenv');
+const courseRoutes = require('./routes/courseRoutes');
+const lessonRoutes = require('./routes/lessonRoutes');
+const flashcardRoutes = require('./routes/flashcardRoutes');
 const cors = require('cors');
 
 

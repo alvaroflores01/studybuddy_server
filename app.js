@@ -13,9 +13,6 @@ dotenv.config();
 app.use(express.json());
 //Routes setup
 app.use('/user', userRoutes);
-// app.get('/', (req,res) => {
-//     res.send("Hi")
-// })
 
 
 

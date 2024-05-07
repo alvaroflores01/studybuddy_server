@@ -12,10 +12,10 @@ dotenv.config();
 //Middleware setup
 app.use(express.json());
 //Routes setup
-app.use('/api/users', userRoutes);
-app.get('/', (req,res) => {
-    res.send("Hi")
-})
+app.use('/user', userRoutes);
+// app.get('/', (req,res) => {
+//     res.send("Hi")
+// })
 
 
 

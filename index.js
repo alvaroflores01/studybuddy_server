@@ -8,7 +8,6 @@ async function testConnection() {
       // Establish connection to the database
       const connection = await oracledb.getConnection(dbConfig);
       console.log('Database connection successful');
-  
       // Release the connection
       await connection.close();
     } catch (error) {
@@ -17,9 +16,9 @@ async function testConnection() {
   }
   
   // Call the function to test the database connection
-  testConnection();
+  // testConnection();
 //Start the server
 app.listen(port, () => {
     console.log(`Server is listening at http://localchost:${port}`);
-  
+    testConnection();
 });

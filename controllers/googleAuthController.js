@@ -1,17 +1,15 @@
 const authService = require('../services/googleAuthService');
 
 const authController = {
-    getUser: async (req, res) => {
-        // console.log("Running Auth Controller");
-        const  tokenInfo = await authService.getToken(req.body.code);
-        // console.log(`Token info ${tokenInfo} . @authController/getUser`);
-        if (tokenInfo) {
-            // console.log(tokenInfo);
-            res.json(tokenInfo);
+    getUserInfo: async (req, res) => {
+        const code = req.body.code;
+        const token = await authService.getToken(code);
+        const payload = await authService.verifyToken(token.id_token);
+        if (payload) {
+            res.status(200).json({ email: payload.email, firstName: payload.given_name, lastName: payload.family_name});
         } else {
-            res.status(404).json({ message: `authController did not receive token from authService.getToken` });
+            res.status(404).json({ message: `Failed to get payload @authController` });
         }
-        
     },
 
     refreshToken: async (req, res) => {

@@ -4,33 +4,32 @@ const axios = require('axios');
 const { OAuth2Client } = require('google-auth-library');
 require('dotenv').config();
 
+const client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  'postmessage',
+);
 // Service methods
 const authService = {
   getToken: async (code) => {
-    const oAuth2Client = new OAuth2Client(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_CLIENT_SECRET,
-        'postmessage',
-    );
     try {
-        const {tokens} = await oAuth2Client.getToken(code);
-        // console.log(`Tokens:${tokens.access_token} @authService/getToken`);
+        const { tokens } = await client.getToken(code);
         if (tokens) {
-          // console.log(`Running IF TOKENS @ authService/getToken`)
-          const userInfo = await  axios.get('https://www.googleapis.com/oauth2/v3/userinfo', { headers: { Authorization: `Bearer ${tokens.access_token}` } }
-          );
-          // const tokenInfo = await oAuth2Client.getTokenInfo(tokens.access_token);
-          // console.log(userInfo.data);
-          return userInfo.data;
+          return tokens;
         }
         
-        // return response;
     } catch {
         console.log("Error at authService (getToken)");
         return null;
     }
+  },  
+  verifyToken: async(idToken) => {
+    // console.log("Running verify")
+    const ticket = await client.verifyIdToken({idToken: idToken, audience: process.env.GOOGLE_CLIENT_ID });
+    const payload = ticket.getPayload();
+    return payload;
+    // console.log(payload);
   },
-  
 
   refreshToken: async (refreshToken) => {
     try {
@@ -45,7 +44,6 @@ const authService = {
     } 
   },
 
-  // Implement other CRUD operations similarly...
 };
 
 module.exports = authService;

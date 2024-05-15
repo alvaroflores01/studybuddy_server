@@ -1,7 +1,12 @@
 const userService = require('../services/userService');
 
 const userController = {
-
+    fetchUser: async (req,res) => {
+        console.log(req.body);
+        const email = req.body.email;
+        const found = await userService.userExists(email);
+        console.log(`User: ${email}, exists: ${found}`);
+    },
 
     fetchUserCourses: async (req, res) => {
         const userId = parseInt(req.params.userId);

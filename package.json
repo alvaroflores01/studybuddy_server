@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/alvaroflores01/studybuddy_server#readme",
   "dependencies": {
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "google-auth-library": "^9.10.0",
     "nodemon": "^3.1.0",
     "oracledb": "^6.5.0"
   }

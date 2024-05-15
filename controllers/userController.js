@@ -14,7 +14,12 @@ const userController = {
         } else {
             res.status(404).json({ message: `User with ID ${userId} not found` });
         }
-    }, };
+    }, 
+    
+    fetchUserInfoWithGoogleToken: async() => {
+        
+    }
+};
     // createUser: (req, res) => {
     //     const userData = req.body;
     //     const newUser = userService.createUser(userData);

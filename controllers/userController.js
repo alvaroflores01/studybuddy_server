@@ -2,10 +2,15 @@ const userService = require('../services/userService');
 
 const userController = {
     fetchUser: async (req,res) => {
-        console.log(req.body);
-        const email = req.body.email;
-        const found = await userService.userExists(email);
-        console.log(`User: ${email}, exists: ${found}`);
+        const {firstName, lastName, email} = req.body;
+        console.log(`${firstName}, ${lastName}, ${email}`);
+        const existingUser = await userService.userExists(email);
+        if (!existingUser) {
+            await userService.createUser(req.body);
+            //create user
+        } 
+        //Fetch user data
+
     },
 
     fetchUserCourses: async (req, res) => {

@@ -3,9 +3,9 @@ const oracledb = require('oracledb');
 
 // Service methods
 const userService = {
+
+  //Returns boolean depending if email was found in database
   userExists: async(email) => {
-    // console.log(`aserService.userExists: email is ${email}`);
-    // console.log("Running userService.userExists");
     let connection;
     try {
       connection = await oracledb.getConnection(dbConfig);
@@ -13,13 +13,11 @@ const userService = {
         `SELECT * FROM USERS WHERE email = :email`, [email]
       );
       if (result.rows.length === 0) {
-        console.log('user does not exist')
         return false
       }
-      console.log('user does exist');
       return true;
     } catch (error) {
-      console.log(`Error validating user: ${error}`);
+      console.log(`Error verifying user in DB: ${error}`);
     } finally {
       if (connection) {
         try {
@@ -29,13 +27,16 @@ const userService = {
         }
       }
   }},
+
   createUser: async(userInfo) => {
+    console.log("Attempting to create user");
     let connection;
     const { firstName, lastName, email } = userInfo;
     try {
       connection = await oracledb.getConnection(dbConfig);
       const result = await connection.execute(
-        `INSERT INTO users (FIRST_NAME, LAST_NAME, EMAIL) VALUES (:firstName, :lastName, :email)` , 
+        `INSERT INTO Users (user_id, first_name, last_name, email)
+        VALUES (users_seq.NEXTVAL, :firstName, :lastName, :email)` , 
         [firstName, lastName, email], 
         { autoCommit: true }
       );
